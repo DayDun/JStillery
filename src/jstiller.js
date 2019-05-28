@@ -657,15 +657,6 @@ var jstiller = (function() {
   
   /**
    * Convert JavaScript value to esprima node.
-   * Supported values:
-   *   RegExp
-   *   undefined
-   *   null
-   *   NaN
-   *   Infinity, -Infinity,
-   *   0, -0,
-   *   Number
-   *   esprima node
    */
   function mkliteral(value, raw) {
     if (value instanceof RegExp) {
@@ -731,7 +722,12 @@ var jstiller = (function() {
       return value;
     }
     
-    throw "Unable to convert value to esprima node";
+    return {
+      type: "Literal",
+      value: value,
+      pure: true,
+      raw: JSON.stringify(this.value)
+    };
   }
   /**
    * Tries toString method called by + and by explicit calls to join or
