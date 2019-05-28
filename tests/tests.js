@@ -43,8 +43,10 @@ describe('JStillery', function() {
           esdeob.init();
           ast = esdeob.deobfuscate(ast, null, true);
           var reduced = escodegen.generate(ast);
-
-          expect(reduced.trim()).to.be.equal(expected.trim());
+          
+          reduced = reduced.trim().replace(/\r/g, "");
+          expected = expected.trim().replace(/\r/g, "");
+          expect(reduced).to.be.equal(expected);
         });
       });
     }
